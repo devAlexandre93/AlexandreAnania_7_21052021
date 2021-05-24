@@ -35,7 +35,7 @@ exports.signUp = async (req, res) => {
                     pseudo,
                     email,
                     password: hash,
-                    pictureUrl: "./uploads/profile/default-user.svg"
+                    pictureUrl: "./img/default-user.svg"
                 });
                 res.status(201).json({ user: user.id });
             }

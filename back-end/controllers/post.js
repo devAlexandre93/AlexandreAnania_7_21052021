@@ -24,9 +24,9 @@ exports.getAllPosts = async (req, res) => {
             ],
         });
         if (posts > []) {
-            res.status(201).send(posts);
+            res.status(200).send(posts);
         } else {
-            res.status(404).send({ error: "Il n'y a pas de publication pour le moment !" });
+            res.status(200).send({ error: "Il n'y a pas de publication pour le moment !" });
         }
     } catch (error) {
         res.status(500).send({ error });
@@ -65,9 +65,13 @@ exports.createPost = async (req, res) => {
 
     // Vérification des champs renseignés par l'utilisateur
     if (contentTrue == false) {
-        res.status(400).send({
-            errorContent: "La publication doit contenir entre 3 et 250 caractères !",
+        res.status(200).send({
+            errors: {
+                errorContent:
+                    "La publication doit contenir entre 2 et 150 caractères !",
+            },
         });
+        res.status(400).send({ error: 'error' });
     };
 
     // Si l'utilisateur upload un fichier
@@ -101,7 +105,7 @@ exports.createPost = async (req, res) => {
             content: content,
             imageUrl: req.file != null ? './uploads/posts/' + fileName : '',
             UserId: userId,
-            videoUrl: req.body.video,
+            videoUrl: req.body.videoUrl,
         })
             .then(newPost => res.status(201).send({ newPost }))
             .catch(error => res.status(400).send({ error }));
@@ -117,9 +121,13 @@ exports.updatePost = async (req, res) => {
 
     // Vérification des champs renseignés par l'utilisateur
     if (contentTrue == false) {
-        res.status(400).send({
-            errorContent: "La publication doit contenir entre 3 et 250 caractères !",
+        res.status(200).send({
+            errors: {
+                errorContent:
+                    "La publication doit contenir entre 3 et 250 caractères !",
+            },
         });
+        res.status(400).send({ error: 'error' });
     };
 
     try {

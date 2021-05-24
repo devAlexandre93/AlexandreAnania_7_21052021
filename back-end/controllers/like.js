@@ -9,11 +9,11 @@ const { Likes } = require('../models'); // Import du modèle 'Likes' créé grâ
 // Liker une publication
 exports.likePost = async (req, res) => {
     try {
-        let userId = req.body.userId;
+        let userId = req.params.liker;
         let postId = req.params.id;
         await Likes.create({
-            PostId: postId,
-            UserId: userId,
+            postId: postId,
+            userId: userId,
         })
             .then(like => res.status(201).send({ like }))
             .catch(error => res.status(400).send({ error }));
@@ -25,7 +25,7 @@ exports.likePost = async (req, res) => {
 // Unliker une publication
 exports.unlikePost = async (req, res) => {
     try {
-        let userId = req.body.userId;
+        let userId = req.params.liker;
         let postId = req.params.id;
         await Likes.destroy({
             where: { userId: userId, postId: postId },
@@ -41,12 +41,12 @@ exports.unlikePost = async (req, res) => {
 exports.getLikes = async (req, res) => {
     try {
         const likes = await Likes.findAll({
-            attributes: ['id', 'UserId', 'PostId'],
+            attributes: ['id', 'userId', 'postId'],
         });
         if (likes > []) {
             res.status(200).send(likes);
         } else {
-            res.status(404).send({ error: "Il n'y a pas de like pour le moment !" });
+            res.status(200).send({ error: "Il n'y a pas de like pour le moment !" });
         }
     } catch (error) {
         res.status(500).send({ error });

@@ -9,15 +9,15 @@ const { verifyUserInput } = require('../middlewares/verifyUserInput'); // Import
 
 // Créer un commentaire
 exports.commentPost = async (req, res) => {
-    let userId = req.body.userId;
-    let postId = req.params.id;
+    let userId = req.params.userid;
+    let postId = req.params.postid;
     let commenterPseudo = req.body.commenterPseudo;
     let content = req.body.content;
     let contentTrue = verifyUserInput.validComment(content);
 
     // Vérification du champs renseigné par l'utilisateur
     if (contentTrue == false) {
-        res.status(400).send({
+        res.status(200).send({
             errorContentComment: "Le commentaire doit contenir entre 2 et 150 caractères !",
         });
         res.status(500).send({ error });
@@ -26,8 +26,8 @@ exports.commentPost = async (req, res) => {
     // Si le champs renseigné est valide, création du commenataire
     try {
         const newComment = await Comments.create({
-            PostId: postId,
-            UserId: userId,
+            postId: postId,
+            userId: userId,
             commenterPseudo: commenterPseudo,
             content: content,
         });
@@ -50,7 +50,7 @@ exports.updateComment = async (req, res) => {
 
     // Vérification du champs renseigné par l'utilisateur
     if (contentTrue == false) {
-        res.status(400).send({
+        res.status(200).send({
             errorContentComment: "Le commentaire doit contenir entre 2 et 150 caractères !",
         });
         res.status(500).send({ error });
@@ -60,12 +60,12 @@ exports.updateComment = async (req, res) => {
         const commentFound = await Comments.findOne({
             attributes: [
                 'id',
+                'userId',
+                'postId',
                 'commenterPseudo',
                 'content',
                 'createdAt',
                 'updatedAt',
-                'UserId',
-                'PostId'
             ],
             where: { id: commentId },
         });
@@ -90,7 +90,7 @@ exports.deleteComment = async (req, res) => {
             where: { id: commentId },
         });
         if (!commentFound) {
-            return res.status(404).send({ error: "Le commentaire avec l'id numéro " + req.params.id + " est introuvable !" });
+            return res.status(200).send({ error: "Le commentaire avec l'id numéro " + req.params.id + " est introuvable !" });
         }
 
         // Suppression du commentaire s'il existe
@@ -105,24 +105,39 @@ exports.deleteComment = async (req, res) => {
 
 // Obtenir tous les commentaires
 exports.getAllComments = async (req, res) => {
-	try {
-		const comments = await Comments.findAll({
-			attributes: [
-				'id',
-				'commenterPseudo',
-				'content',
-				'createdAt',
-				'updatedAt',
-                'UserId',
-				'PostId',
-			],
-		});
-		if (comments > []) {
-			res.status(200).send(comments);
-		} else {
-			res.status(404).send({ error: "Il n'y a pas de commentaire pour le moment !" });
-		}
-	} catch (error) {
-		res.status(500).send({ error });
-	}
+    try {
+        const comments = await Comments.findAll({
+            attributes: [
+                'id',
+                'userId',
+                'postId',
+                'commenterPseudo',
+                'content',
+                'createdAt',
+                'updatedAt',
+            ],
+        });
+        if (comments > []) {
+            res.status(200).send(comments);
+        } else {
+            return res.status(200).send({ error: "Il n'y a pas de commentaire pour le moment !" });
+        }
+    } catch (error) {
+        res.status(500).send({ error });
+    }
 };
+
+// Obtenir les commentaires d'un post
+exports.getCommentsPost = (async (req, res) => {
+    try {
+        const postId = req.params.postid;
+        const comments = await Comments.findAll({ where: { PostId: postId } });
+        if (comments > []) {
+            res.status(200).send(comments);
+        } else {
+            res.status(200).send({ error: "La publication n'existe pas ou elle n'a pas de commentaire pour le moment !" });
+        }
+    } catch (error) {
+        res.status(500).send({ error });
+    };
+});

@@ -12,15 +12,11 @@ module.exports = (sequelize, DataTypes) => {
 		static associate(models) {
 			// define association here
 			models.Users.hasMany(models.Posts, {
-				onDelete: 'cascade',
-                hooks: true 
+                onDelete:'cascade',
 			});
-            models.Users.hasMany(models.Likes, {
-                onDelete: "cascade",
-            });
-            models.Users.hasMany(models.Comments, {
-                onDelete: "cascade",
-            });
+            //models.Users.hasMany(models.Comments, {
+                //onDelete:'cascade',
+			//});
         };
 	}
 	Users.init(
@@ -50,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
 			bio: {
                 type: DataTypes.STRING,
                 validate: {
-                    len: [0, 350]
+                    len: [0, 150]
                 }
             },
 			pictureUrl: {

@@ -6,6 +6,8 @@
 
 const { Users } = require('../models'); // Import du modèle 'Users' créé grâce à la fonction sequelize
 const { verifyUserInput } = require('../middlewares/verifyUserInput'); // Import d'un middleware permettant de vérifier si les champs à remplir sont bien renseignés par les utilisateurs
+const bcrypt = require('bcrypt');
+const fs = require('fs');
 
 // Obtenir les utilisateurs
 exports.getAllUsers = async (req, res) => {
@@ -37,10 +39,14 @@ exports.updateUser = async (req, res) => {
 
     // Vérification du champs renseigné par l'utilisateur
     if (bioTrue == false) {
-        res.status(400).send({
-            errorBio: "La description doit contenir entre 3 et 350 caractères !",
-        });
-    };
+		res.status(200).send({
+			errors: {
+				errorBio:
+                "La description doit contenir 150 caractères au maximum !",
+			},
+		});
+		res.status(400).send({ error: 'error' });
+	}
 
     // Si le champs renseigné est valide, modification de la description
     if (bioTrue == true) {
@@ -63,20 +69,31 @@ exports.updateUser = async (req, res) => {
 
 // Supprimer un utilisateur
 exports.deleteUser = async (req, res) => {
+    const password = req.body.password;
+    const user = await Users.findOne({ where: { id: req.params.id } });
+
     try {
-        const user = await Users.findOne({ where: { id: req.params.id } });
-        if (user) {
-            user
-                .destroy()
-                .then(
-                    res.status(200).send({
-                        message: "L'Utilisateur avec l'id " + req.params.id + ' a été supprimé !',
-                    }),
-                )
-                .catch(error => res.status(400).send({ error }));
-        } else {
+        if (!user) {
             res.status(400).send({ error: "L'Utilisateur avec l'id numéro " + req.params.id + " est introuvable !" });
         }
+        // Vérification de la suppression avec le mot de passe de l'utilisateur
+        await bcrypt
+            .compare(password, user.password)
+            .then(auth => {
+                if (!auth) {
+                    res.status(200).json({ errorPassword: 'Mot de passe incorrect !' });
+                } else {
+                    user
+                        .destroy()
+                        .then(
+                            res.status(200).send({
+                                message: "L'Utilisateur avec l'id " + req.params.id + ' a été supprimé !',
+                            }),
+                        )
+                        .catch(error => res.status(400).send({ error }));
+                }
+            })
+            .catch(error => res.status(400).send({ error }));
     } catch (error) {
         res.status(500).send({ error });
     }

@@ -14,11 +14,11 @@ const verifyUserInput = {
 		return regexPassword.test(value);
 	},
 	validBio: function (value) {
-		const regex = /^[\s\S]{3,350}/;
+		const regex = /^[\s\S]{0,150}/;
 		return regex.test(value);
 	},
 	validPost: function (value) {
-		const regex = /^[\s\S]{2,250}$/;
+		const regex = /^[\s\S]{2,150}$/;
 		return regex.test(value);
 	},
 	validComment: function (value) {

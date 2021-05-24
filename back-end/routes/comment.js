@@ -12,10 +12,11 @@ const commentCtrl = require('../controllers/comment');
 const { checkUser, requireAuth } = require('../middlewares/auth');
 
 // Ajout des routes "comment"
-router.post('/commentpost/:id', checkUser, requireAuth, commentCtrl.commentPost);
+router.patch('/:postid/commentpost/:userid', checkUser, requireAuth, commentCtrl.commentPost);
 router.patch('/editcomment/:id', checkUser, requireAuth, commentCtrl.updateComment);
 router.delete('/deletecomment/:id', checkUser, requireAuth, commentCtrl.deleteComment);
 router.get('/getcomments', commentCtrl.getAllComments);
+//router.get('/getcommentspost/:postid', commentCtrl.getCommentsPost);
 
 // Export
 module.exports = router;

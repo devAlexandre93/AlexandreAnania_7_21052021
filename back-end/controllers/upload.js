@@ -23,7 +23,7 @@ exports.uploadProfile = async (req, res) => {
         if (req.file.size > 500000) throw Error('max size');
     } catch (error) {
         const errors = uploadErrors(error);
-        return res.status(400).json({ errors });
+        return res.status(200).json({ errors });
     }
 
     const fileName = req.body.name + '.jpg';

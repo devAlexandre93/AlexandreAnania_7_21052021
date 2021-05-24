@@ -13,6 +13,10 @@ function LeftNav() {
                         <img src='./img/icons/home.svg' alt='home' />
                     </NavLink>
                     <br />
+                    <NavLink to='/trending' exact activeClassName="active-left-nav">
+                        <img src="./img/icons/rocket.svg" alt="home" />
+                    </NavLink>
+                    <br />
                     <NavLink to='/profile' exact activeClassName='active-left-nav'>
                         <img src='./img/icons/user.svg' alt='home' />
                     </NavLink>

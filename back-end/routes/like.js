@@ -12,8 +12,8 @@ const likeCtrl = require('../controllers/like');
 const { checkUser, requireAuth } = require('../middlewares/auth');
 
 // Ajout des routes "like"
-router.patch('/likepost/:id', checkUser, requireAuth, likeCtrl.likePost);
-router.patch('/unlikepost/:id', checkUser, requireAuth, likeCtrl.unlikePost);
+router.patch('/:id/likepost/:liker', checkUser, requireAuth, likeCtrl.likePost);
+router.delete('/:id/unlikepost/:liker', checkUser, requireAuth, likeCtrl.unlikePost);
 router.get('/getlikes', likeCtrl.getLikes);
 
 // Export
