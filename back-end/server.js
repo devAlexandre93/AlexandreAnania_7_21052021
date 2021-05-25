@@ -5,6 +5,9 @@ const express = require('express'); // Importation d'express => Framework basé 
 const cookieParser = require('cookie-parser'); // Importation de cookie-parser pour exploiter les cookies
 const cors = require('cors');
 require('dotenv').config({ path: './config/.env' });
+const helmet = require('helmet'); // Import du module 'helmet' pour protéger l'application de certaines vulnérabilités en configurant de manière appropriée des en-têtes HTTP
+// Import de 'cookie-session' pour garantir que les cookies n’ouvrent pas notre application aux attaques
+const session = require('cookie-session')
 
 // Déclaration des fonctions de vérification de l'utilisateur via jwt
 const { checkUser, requireAuth } = require('./middlewares/auth');
@@ -28,6 +31,22 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 const db = require('./models');
+
+// Sécurisation d'express en définissant diverses en-têtes HTTP - https://expressjs.com/fr/advanced/best-practice-security.html
+app.use(helmet());
+
+// Définition des options pour sécuriser les cookies
+const expiryDate = new Date(Date.now() + 60 * 60 * 1000); // 1 heure
+app.use(session({
+  name: process.env.SECRET_SESSION,
+  secret: 's3Cur3',
+  cookie: { 
+    secure: true,
+    httpOnly: true,
+    domain: process.env.CLIENT_URL,
+    expires: expiryDate
+  }
+}));
 
 // Déclaration des routes
 const userRoutes = require('./routes/user');

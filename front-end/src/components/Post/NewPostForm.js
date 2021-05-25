@@ -47,6 +47,7 @@ function NewPostForm() {
 
         } else {
             alert(('Votre publication ne peut pas être vide !'));
+            setIsLoading(false);
         }
     };
 

@@ -30,7 +30,7 @@ function NavBar() {
                         <li></li>
                         <li className="welcome">
                             <NavLink exact to="/profile">
-                                <h5>{userData.pseudo}</h5>
+                                <h4>{userData.pseudo}</h4>
                             </NavLink>
                         </li>
                         <Logout />

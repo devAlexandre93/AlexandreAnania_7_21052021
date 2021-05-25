@@ -107,7 +107,7 @@ function UpdateProfile() {
                     <h4>Membre depuis le {dateParser(userData.createdAt)}</h4>
                     {deleteForm === false && (
                         <>
-                            <button onClick={() => setDeleteForm(!deleteForm)}>
+                            <button className="delete" onClick={() => setDeleteForm(!deleteForm)}>
                                 Supprimer le compte
 							</button>
                         </>
@@ -125,6 +125,7 @@ function UpdateProfile() {
                                 />
                                 <div className="password error"></div>
                                 <button
+                                    className="delete"
 									onClick={() => {
 										if (
 											window.confirm(
