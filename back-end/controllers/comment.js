@@ -20,7 +20,7 @@ exports.commentPost = async (req, res) => {
         res.status(200).send({
             errorContentComment: "Le commentaire doit contenir entre 2 et 150 caractères !",
         });
-        res.status(500).send({ error });
+        res.status(400).send({ error });
     };
 
     // Si le champs renseigné est valide, création du commenataire

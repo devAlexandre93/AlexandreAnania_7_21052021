@@ -39,14 +39,14 @@ exports.updateUser = async (req, res) => {
 
     // Vérification du champs renseigné par l'utilisateur
     if (bioTrue == false) {
-		res.status(200).send({
-			errors: {
-				errorBio:
-                "La description doit contenir 150 caractères au maximum !",
-			},
-		});
-		res.status(400).send({ error: 'error' });
-	}
+        res.status(200).send({
+            errors: {
+                errorBio:
+                    "La description doit contenir 150 caractères au maximum !",
+            },
+        });
+        res.status(400).send({ error: 'error' });
+    }
 
     // Si le champs renseigné est valide, modification de la description
     if (bioTrue == true) {
@@ -71,6 +71,7 @@ exports.updateUser = async (req, res) => {
 exports.deleteUser = async (req, res) => {
     const password = req.body.password;
     const user = await Users.findOne({ where: { id: req.params.id } });
+    let fileName = user.dataValues.pictureUrl.split('/uploads/profile')[1];
 
     try {
         if (!user) {
@@ -88,9 +89,20 @@ exports.deleteUser = async (req, res) => {
                         .then(
                             res.status(200).send({
                                 message: "L'Utilisateur avec l'id " + req.params.id + ' a été supprimé !',
+
                             }),
                         )
                         .catch(error => res.status(400).send({ error }));
+
+                    // Supression de la photo de profil de l'utilisateur si ce n'est pas celle par défaut
+                    fs.unlink(
+                        `${__dirname}/../../front-end/public/uploads/profile/${fileName}`,
+                        function (error) {
+                            if (error) {
+                                console.log('Aucune photo de profil trouvée !');
+                            }
+                        },
+                    );
                 }
             })
             .catch(error => res.status(400).send({ error }));

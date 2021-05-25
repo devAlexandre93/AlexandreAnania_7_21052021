@@ -84,7 +84,7 @@ exports.createPost = async (req, res) => {
             )
                 throw Error('invalid file');
 
-            if (req.file.size > 500000) throw Error('max size');
+            if (req.file.size > 50000000) throw Error('max size');
         } catch (err) {
             const errors = uploadErrors(err);
             return res.status(201).send({ errors });
@@ -147,8 +147,9 @@ exports.updatePost = async (req, res) => {
 
 // Supprimer une publication
 exports.deletePost = async (req, res) => {
+    const post = await Posts.findOne({ where: { id: req.params.id } });
+    let fileName = post.dataValues.imageUrl.split('/uploads/posts')[1];
     try {
-        const post = await Posts.findOne({ where: { id: req.params.id } });
         if (post) {
             post
                 .destroy()
@@ -158,6 +159,21 @@ exports.deletePost = async (req, res) => {
                     }),
                 )
                 .catch(error => res.status(400).send({ error }));
+
+                // Supression de la photo de la publication s'il y en a une
+                if (fileName !== undefined) {
+                    fs.unlink(
+                        `${__dirname}/../../front-end/public/uploads/posts${fileName}`,
+                        function (error) {
+                            if (error) {
+                                console.log('error');
+                            } else {
+                                console.log('La photo de la publication a été supprimé !');
+                            }
+                        },
+                    );
+                }
+
         } else {
             res.status(400).send({ error: "La publication avec l'id numéro " + req.params.id + " est introuvable !" });
         }
