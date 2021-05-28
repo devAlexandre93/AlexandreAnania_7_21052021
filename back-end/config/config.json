@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "root",
-    "password": "Saxophone@2018",
-    "database": "socialmedia2",
+    "username": "",
+    "password": "",
+    "database": "",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
