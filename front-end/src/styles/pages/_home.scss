@@ -55,9 +55,9 @@
             margin: 0 8px;
           }
           .active-btn {
-            background: $color-3;
-            color: white;
-            border: 2px solid $color-3;
+            background: $color-4;
+            color: $color-3;
+            border: 2px solid $color-4;
             @media screen and(max-width: 475px) {
               font-size: 0.9em;
               padding: 8px;
@@ -65,11 +65,10 @@
   
             &:hover, &:focus {
               background: $white;
-              color: $color-3
             }
           }
           li:not(.active-btn) {
-            border: 2px solid $color-3;
+            border: 2px solid $color-4;
             &:hover, &:focus {
               transform: translateX(3px);
             }
