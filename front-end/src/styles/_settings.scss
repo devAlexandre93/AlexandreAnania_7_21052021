@@ -58,7 +58,7 @@ textarea {
 }
 textarea {
   &:focus {
-    box-shadow: 0 0 4px rgba(0, 22, 44, 0.1);
+    box-shadow: 0 0 4px $color-2;
   }
 }
 button,
@@ -75,7 +75,7 @@ input[type="submit"] {
   font-size: 1rem;
   border-radius: 20px 6px 20px 20px;
 
-  &:hover {
+  &:hover, &:focus {
     border: $color-5 solid 2px;
     background: white;
     color: $color-5;
@@ -89,7 +89,7 @@ input[type="checkbox"] {
 i {
   transition: 0.15s;
 
-  &:hover {
+  &:hover, &:focus {
     transform: scale(1.1);
   }
 }
@@ -102,9 +102,25 @@ body {
 .error {
   color: red;
   font-weight: bold;
+  @media screen and(max-width: 475px) {
+    font-size: 0.9em;
+  }
 }
 .success {
   color: green;
   font-weight: bold;
   padding-top: 15px;
+  @media screen and(max-width: 475px) {
+    font-size: 0.9em;
+  }
+}
+
+@keyframes stretching {
+  50% {
+      transform: scale(0.7);
+  }
+
+  100% {
+      transform: scale(1);
+  }
 }

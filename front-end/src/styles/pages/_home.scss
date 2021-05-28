@@ -1,6 +1,7 @@
 .home {
   display: grid;
   max-width: 1200px;
+  min-width: 320px;
   grid-template-columns: 60px 1fr 374px;
   overflow: hidden;
   margin: 80px auto 50px;
@@ -8,7 +9,19 @@
 
   @media screen and(max-width: 990px) {
     grid-template-columns: 60px 1fr;
-    margin: 58px 20px 50px
+    margin: 58px 20px 50px;
+  }
+
+  @media screen and(max-width: 900px) {
+    margin: 58px 10px 50px;
+  }
+
+  @media screen and(max-width: 745px) {
+    margin: 58px 10px 50px 5px;
+  }
+
+  @media screen and(max-width: 670px) {
+    margin: 58px 10px 50px 0px;
   }
 
   @media screen and(max-width: 590px) {
@@ -23,9 +36,11 @@
       
       .connection-form {
         background: $white;
-        border: solid $color-1 2px;
+        border: solid $color-4 2px;
         border-radius: 20px;
         padding: 20px;
+        margin-right: 8px;
+        box-shadow: 2px 2px 5px 2px $shadow;
 
         ul {
           display: flex;
@@ -43,28 +58,50 @@
             background: $color-3;
             color: white;
             border: 2px solid $color-3;
+            @media screen and(max-width: 475px) {
+              font-size: 0.9em;
+              padding: 8px;
+            }
   
-            &:hover {
+            &:hover, &:focus {
               background: $white;
               color: $color-3
             }
           }
           li:not(.active-btn) {
             border: 2px solid $color-3;
-            &:hover {
+            &:hover, &:focus {
               transform: translateX(3px);
+            }
+            @media screen and(max-width: 475px) {
+              font-size: 0.9em;
+              padding: 8px;
             }
           }
         }
         form {
+          label {
+            @media screen and(max-width: 475px) {
+              font-size: 1em;
+            }
+          }
           input {
             padding: 10px 14px;
             margin: 0;
+            color: $color-3;
             font-size: 1.1rem;
             font-family: $font-2;
             border-radius: 20px;
             margin-bottom: 10px;
-            border: solid $color-1 2px;
+            border: solid $color-4 2px;
+            @media screen and(max-width: 475px) {
+              font-size: 1em;
+              height: 40px;
+            }
+            @media screen and(max-width: 361px) {
+              font-size: 1em;
+              width: 200px;
+            }
   
             &:focus {
               box-shadow: 0 0 3px rgba(51, 51, 51, 0.2);
@@ -73,8 +110,17 @@
           input[type=submit] {
             border-radius: 20px;
             font-size: 1rem;
+            color: $white;
             border: solid $color-5 2px;
+            &:hover, &:focus {
+              color: $color-5;
+            }
+            @media screen and(max-width: 475px) {
+              font-size: 0.9em;
+              padding: 8px;
+            }
           }
+          
           a {
             color: $color-5;
           }

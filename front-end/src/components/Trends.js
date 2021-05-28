@@ -12,7 +12,7 @@ function Trends() {
 
     // Store de Redux (Stockage de données + Fournisseur de données)
     const posts = useSelector(state => state.allPostsReducer);
-    const usersData = useSelector(state => state.userReducer);
+    const usersData = useSelector(state => state.usersReducer);
     const trendList = useSelector(state => state.trendingReducer);
 
     // Constante dispatch
@@ -56,17 +56,16 @@ function Trends() {
                                         )}
                                         {isEmpty(post.imageUrl) && isEmpty(post.videoUrl) && (
                                             <img
-                                                src={"./img/icon.svg"}
-                                                //src={
-                                                    //usersData[0] &&
-                                                    //usersData
-                                                        //.map((user) => {
-                                                            //if (user.id === post.UserId) {
-                                                                //return user.pictureUrl;
-                                                            //} else return null;
-                                                        //})
-                                                        //.join('')
-                                                //}
+                                                src={
+                                                    usersData[0] &&
+                                                    usersData
+                                                        .map((user) => {
+                                                            if (user.id === post.UserId) {
+                                                                return user.pictureUrl;
+                                                            } else return null;
+                                                        })
+                                                        .join('')
+                                                }
                                                 alt="trend-pic"
                                             />
                                         )}

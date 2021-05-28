@@ -14,10 +14,12 @@ const authCtrl = require('../controllers/auth');
 const userCtrl = require('../controllers/user');
 const uploadCtrl = require('../controllers/upload');
 const { checkUser, requireAuth } = require('../middlewares/auth');
+const bruteForceLog = require('../middlewares/bruteForceLog');
+const bruteForceReg = require('../middlewares/bruteForceReg');
 
 // Ajout des routes "auth"
-router.post('/signup', authCtrl.signUp);
-router.post("/login", authCtrl.login);
+router.post('/signup', bruteForceReg, authCtrl.signUp);
+router.post("/login",  bruteForceLog, authCtrl.login);
 router.get("/logout", authCtrl.logout);
 
 // Ajout des routes "user"

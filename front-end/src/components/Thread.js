@@ -11,7 +11,7 @@ function Thread() {
 
     // Constantes useState
     const [loadPost, setLoadPost] = useState(true);
-    const [count, setCount] = useState(8);
+    const [count, setCount] = useState(5);
 
     // Constante dispatch
     const dispatch = useDispatch();
@@ -34,7 +34,7 @@ function Thread() {
         if (loadPost) {
             dispatch(getPosts(count));
             setLoadPost(false);
-            setCount(count + 8);
+            setCount(count + 5);
         }
         window.addEventListener('scroll', loadMore);
         return () => window.removeEventListener('scroll', loadMore);

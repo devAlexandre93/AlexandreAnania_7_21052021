@@ -5,8 +5,12 @@
     position: fixed;
     z-index: 10;
 
+    @media screen and(max-width: 990px) {
+      margin: 35px 0 0 0px;
+    }
+
     @media screen and(max-width: 590px) {
-      margin: 2px 0 0 -9px;
+      margin: 35px 0 0 -9px;
     }
 
     .icons-bis {
@@ -30,13 +34,13 @@
           border-radius: 50px;
         }
 
-        &:hover {
+        &:hover, &:focus {
           transform: scale(1.02);
         }
-        &:hover::before {
+        &:hover::before, &:focus::before {
           transform: scale(1);
           @media screen and(max-width: 590px) {
-            background: $color-1;
+            background: $color-4;
             height: 34px;
             width: 34px;
           }

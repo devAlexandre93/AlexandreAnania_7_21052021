@@ -1,13 +1,17 @@
+.thread-container {
+  margin-right: 8px;
+}
+
 .card-container {
   display: grid;
   grid-template-columns: 66px 1fr;
   border: 2px solid $color-4;
-  margin: 10px;
   padding: 16px;
   border-radius: 20px;
-  margin: 8px auto;
+  margin: 0px auto 15px;
   position: relative;
   min-height: 100px;
+  box-shadow: 2px 2px 5px 2px $shadow;
 
   @media screen and(max-width: 590px) {
     grid-template-columns: 1fr;
@@ -36,7 +40,7 @@
         height: 40px;
         width: 40px;
         margin-left: 18px;
-        border-radius: 14px;
+        border-radius: 20px;
       }
     }
     @media screen and(max-width: 590px) {
@@ -55,6 +59,7 @@
       margin: 2px 0 4px;
       min-height: 30px;
 
+
       @media screen and(max-width: 590px) {
         margin: 12px 0 14px;
       }
@@ -66,6 +71,12 @@
       .pseudo {
         display: flex;
 
+        h3 {
+          @media screen and(max-width: 475px) {
+            font-size: 1.1em;
+          }
+        }
+
         @media screen and(max-width: 590px) {
           margin-left: 52px;
         }
@@ -75,7 +86,7 @@
 
         span {
           transform: translate(0px, -5px);
-
+        
           @media screen and(max-width: 440px) {
             margin: 0px 0 -10px;
             padding: 0;
@@ -89,7 +100,7 @@
             height: 28px;
             width: 28px;
 
-            &:hover {
+            &:hover, &:focus {
               transform: scale(1.2) translate(0px, 0px);
             }
           }
@@ -106,6 +117,10 @@
       span {
         font-style: italic;
         font-family: $font-1;
+
+        @media screen and(max-width: 475px) {
+          font-size: 0.8em;
+        }
 
         @media screen and(max-width: 440px) {
           transform: translate(52px, -20px);
@@ -133,7 +148,7 @@
           width: 240px;
           transform: translateY(-3px);
 
-          &:hover {
+          &:hover, &:focus {
             background: white;
             width: 250px;
             letter-spacing: 1px;
@@ -167,7 +182,7 @@
         border: solid 1px $color-4;
 
 
-        &:hover {
+        &:hover, &:focus {
           transform: scale(1.07);
         }
 
@@ -191,7 +206,7 @@
         cursor: pointer;
         transition: 0.2s;
 
-        &:hover {
+        &:hover, &:focus {
           transform: scale(1.2);
         }
       }
@@ -246,6 +261,9 @@
 
           h3 {
             font-family: $font-1;
+            @media screen and(max-width: 475px) {
+              font-size: 1.1em;
+            } 
           }
           span {
             transform: translateX(6px);
@@ -256,10 +274,16 @@
           font-size: 0.9rem;
           font-style: italic;
           font-family: $font-1;
+          @media screen and(max-width: 475px) {
+            font-size: 0.8em;
+          } 
         }
       }
       p {
         margin-top: 8px;
+        @media screen and(max-width: 475px) {
+          font-size: 1em;
+        } 
       }
       .edit-comment {
         color: $color-2;
@@ -272,7 +296,7 @@
           height: 20px;
           width: 20px;
 
-          &:hover {
+          &:hover, &:focus {
             transform: scale(1.1);
           }
         }
@@ -289,8 +313,12 @@
             transition: 0.2s;
             display: inline-block;
             font-family: $font-2;
+            @media screen and(max-width: 475px) {
+              font-size: 0.9em;
+              padding: 8px;
+            }
 
-            &:hover {
+            &:hover, &:focus {
               transform: scale(1.05);
               background: $white;
               color: $color-5;  
@@ -304,6 +332,10 @@
             width: 100%;
             border-radius: 6px 20px 6px 20px;
             border: 2px solid $color-4;
+            @media screen and(max-width: 475px) {
+              font-size: 1em;
+              height: 50px;
+            }
           }
           .btn {
             display: flex;
@@ -319,7 +351,7 @@
               transition: 0.2s;
               cursor: pointer;
 
-              &:hover {
+              &:hover, &:focus {
                 background: $white;
                 border: 2px solid $color-4;
               }
@@ -331,8 +363,12 @@
             input[type="submit"] {
               width: inherit;
               transition: 0.2s;
+              @media screen and(max-width: 475px) {
+                font-size: 0.9em;
+                padding: 8px;
+              }
 
-              &:hover {
+              &:hover, &:focus {
                 width: inherit;
               }
             }
@@ -351,6 +387,10 @@
         font-size: 1.1rem;
         color: $color-3;
         border: 2px solid $color-4;
+        @media screen and(max-width: 475px) {
+          font-size: 1em;
+          height: 50px;
+        }
 
         &:focus {
           box-shadow: 0 0 2px rgba(51, 51, 51, 0.5);
@@ -365,8 +405,12 @@
         border-radius: 20px 6px 20px 20px;
         transition: 0.2s;
         float: right;
+        @media screen and(max-width: 475px) {
+          font-size: 0.9em;
+          padding: 8px;
+        }
 
-        &:hover {
+        &:hover, &:focus {
           background: white;
           color: $color-5;
           letter-spacing: 2px;
@@ -378,7 +422,7 @@
         background: $color-1;
         transition: 0.2s;
 
-        &:hover {
+        &:hover, &:focus {
           background: $color-2;
         }
       }
@@ -400,6 +444,9 @@
       height: 80px;
       font-size: 1.1rem !important;
       border: 1px solid $color-1 !important;
+      @media screen and(max-width: 475px) {
+        font-size: 1em;
+      }
     }
     .button-container {
       text-align: right;
@@ -408,6 +455,10 @@
         margin: 0;
         margin-left: 5px;
         width: 150px;
+        @media screen and(max-width: 475px) {
+          font-size: 0.9em;
+          padding: 8px;
+        }
 
         &:nth-child(1) {
           background: $color-1;

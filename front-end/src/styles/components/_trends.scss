@@ -4,6 +4,7 @@
   padding: 20px;
   width: 356px;
   border: $color-2 solid 2px;
+  box-shadow: 2px 2px 5px 2px $shadow;
 
   h4 {
     font-size: 1.2rem;
@@ -17,8 +18,9 @@
       display: grid;
       align-items: center;
       grid-template-columns: 68px 1fr;
-      background: $color-2;
+      background: $color-4;
       border-radius: 20px;
+      border : $color-2 2px solid;
       padding: 16px;
       box-shadow: 2px 2px 5px 2px $shadow;
       transition: .2s;
@@ -34,11 +36,11 @@
 
       img,
       iframe {
-        height: 56px;
-        width: 56px;
-        border-radius: 20px;
+        height: 60px;
+        width: 60px;
+        border-radius: 33px;;
         object-fit: cover;
-        box-shadow: 0 0 4px rgba(51, 51, 51, 0.233);
+        border: solid $color-2 1px,
       }
       .trend-content {
         position: relative;
@@ -50,14 +52,15 @@
           -webkit-line-clamp: 2;
           overflow: hidden;
           font-size: .9rem;
-          color: $white;
+          color: $color-3;
         }
         span {
-          color: $color-1;
+          color: $color-2;
           font-family: $font-2;
           position: absolute;
           right: 6px;
           bottom: -11px;
+          font-size: .9rem;
         }
       }
     }

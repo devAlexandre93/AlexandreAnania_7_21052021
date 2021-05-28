@@ -47,12 +47,13 @@ function SignUpForm() {
             })
                 .then((res) => {
                     // Gestion des erreurs
-                    if (res.data.errorPassword || res.data.errors) {
+                    if (res.data.errorPassword || res.data.errors || res.data.errorBrute)  {
                         if (res.data.errorPassword) { passwordError.innerHTML = res.data.errorPassword };
                         if (res.data.errors) {
                             pseudoError.innerHTML = res.data.errors.pseudo;
                             emailError.innerHTML = res.data.errors.email;
                         }
+                        if (res.data.errorBrute) {termsError.innerHTML = res.data.errorBrute}
                     } else {
                         setFormSubmit(true);
                     }

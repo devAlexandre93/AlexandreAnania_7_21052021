@@ -24,13 +24,10 @@ function SignInForm() {
         })
             .then((res) => {
                 // Affichage des erreurs s'il y en a
-                if (res.data.errorEmpty || res.data.errorLogin) {
-                    if (res.data.errorEmpty) {
-                        passwordError.innerHTML = res.data.errorEmpty;
-                    }
-                    if (res.data.errorLogin) {
-                        passwordError.innerHTML = res.data.errorLogin;
-                    }
+                if (res.data.errorEmpty || res.data.errorLogin || res.data.errorBrute) {
+                    if (res.data.errorEmpty) {passwordError.innerHTML = res.data.errorEmpty}
+                    if (res.data.errorLogin) {passwordError.innerHTML = res.data.errorLogin}
+                    if (res.data.errorBrute) {passwordError.innerHTML = res.data.errorBrute}
                 } else {
                     // Actualisation de la page avec le token reçu
                     window.location = '/';

@@ -103,6 +103,7 @@ function NewPostForm() {
                 <>
                     <NavLink exact to="/profil">
                         <div className="user-info">
+                            <h4>{userData.pseudo}</h4>
                             <img src={userData.pictureUrl} alt="user-img" />
                         </div>
                     </NavLink>
